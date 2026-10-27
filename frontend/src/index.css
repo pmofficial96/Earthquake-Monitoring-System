@@ -1,0 +1,137 @@
+@import "tailwindcss";
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Space+Grotesk:wght@500;600;700&family=JetBrains+Mono:wght@400;500&display=swap');
+
+:root {
+  --bg: #0B0F19;
+  --panel: #141925;
+  --border: #232A3B;
+  --text: #E8EAED;
+  --text-sec: #9AA3B2;
+  --green: #4ADE80;
+  --yellow: #FACC15;
+  --red: #F87171;
+  --blue: #60A5FA;
+  --purple: #A78BFA;
+}
+
+* { box-sizing: border-box; margin: 0; padding: 0; }
+
+body {
+  background-color: var(--bg);
+  color: var(--text);
+  font-family: 'Inter', sans-serif;
+  font-size: 14px;
+  line-height: 1.5;
+  overflow-x: hidden;
+}
+
+h1, h2, h3, h4 { font-family: 'Space Grotesk', sans-serif; }
+
+.mono { font-family: 'JetBrains Mono', monospace; }
+
+/* Scrollbars */
+::-webkit-scrollbar { width: 6px; height: 6px; }
+::-webkit-scrollbar-track { background: var(--bg); }
+::-webkit-scrollbar-thumb { background: var(--border); border-radius: 3px; }
+::-webkit-scrollbar-thumb:hover { background: #3a4357; }
+
+/* Leaflet override for dark theme */
+.leaflet-container { background: #0c1220 !important; }
+
+/* Dark-mode filter on tiles — OSM tiles are light by default,
+   this inverts + hue-shifts them to look like a dark map.
+   Only applies to the tile layer; markers in overlay-pane are unaffected. */
+.leaflet-tile-pane {
+  filter: invert(100%) hue-rotate(180deg) brightness(90%) contrast(90%) saturate(0.8);
+}
+
+.leaflet-popup-content-wrapper {
+  background: var(--panel) !important;
+  color: var(--text) !important;
+  border: 1px solid var(--border) !important;
+  border-radius: 10px !important;
+  box-shadow: 0 8px 32px rgba(0,0,0,0.5) !important;
+}
+.leaflet-popup-tip { background: var(--panel) !important; }
+.leaflet-popup-close-button { color: var(--text-sec) !important; }
+.leaflet-control-zoom a {
+  background: var(--panel) !important;
+  color: var(--text) !important;
+  border-color: var(--border) !important;
+}
+.leaflet-control-attribution {
+  background: rgba(20,25,37,0.85) !important;
+  color: var(--text-sec) !important;
+}
+
+/* Panel */
+.panel {
+  background: var(--panel);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  padding: 16px;
+}
+
+/* Pulse animation for live dot */
+@keyframes pulse {
+  0%, 100% { opacity: 1; transform: scale(1); }
+  50% { opacity: 0.5; transform: scale(1.4); }
+}
+.pulse { animation: pulse 2s infinite; }
+
+/* Glow animation for quake markers */
+@keyframes glow {
+  0%, 100% { filter: drop-shadow(0 0 4px currentColor); }
+  50% { filter: drop-shadow(0 0 10px currentColor); }
+}
+
+/* Skeleton loader */
+@keyframes shimmer {
+  0% { background-position: -200% 0; }
+  100% { background-position: 200% 0; }
+}
+.skeleton {
+  background: linear-gradient(90deg, var(--border) 25%, #2a3347 50%, var(--border) 75%);
+  background-size: 200% 100%;
+  animation: shimmer 1.5s infinite;
+  border-radius: 6px;
+}
+
+/* Slide-in animation */
+@keyframes slideIn {
+  from { opacity: 0; transform: translateY(12px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+.slide-in { animation: slideIn 0.3s ease forwards; }
+
+/* Button base */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 7px 14px;
+  border-radius: 8px;
+  font-size: 13px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.15s;
+  border: 1px solid transparent;
+}
+.btn-primary {
+  background: #1d4ed8;
+  color: #fff;
+  border-color: #2563eb;
+}
+.btn-primary:hover { background: #2563eb; }
+.btn-ghost {
+  background: transparent;
+  color: var(--text-sec);
+  border-color: var(--border);
+}
+.btn-ghost:hover { background: var(--border); color: var(--text); }
+.btn-danger {
+  background: rgba(248,113,113,0.1);
+  color: var(--red);
+  border-color: rgba(248,113,113,0.3);
+}
+.btn-danger:hover { background: rgba(248,113,113,0.2); }
